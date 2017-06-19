@@ -1,16 +1,9 @@
-//take grid size inputs [x,y]
-//take input of robot starting position [x,y,d]
-//push into empty array
-//initiate counter based on position
-//take instructions, loop through and add counter
-//boolean value to determine LOST first time, start false, change to true for thereafter
-//push final position into finalArray
 
 
-//Global Variables
-
+// Constant
 var DIRECTION = ['e', 'n', 'w', 's'];
 
+// This function is called when the user submits all inputs
 function play() {
     var grid = drawGrid();
     var location = setStartingPoint();
@@ -19,7 +12,7 @@ function play() {
     printResult(location);
 }
 
-//takes inputs from page and save to variables
+// Sets the boundaries of the grid
 function drawGrid() {
   return {
     x: parseInt(document.getElementById('xGrid').value),
@@ -27,15 +20,13 @@ function drawGrid() {
   };
 }
 
-//setting starting point variables
+// Sets starting point
 function setStartingPoint() {
     var startPoint = {};
     startPoint.x = parseInt(document.getElementById('xStart').value);
     startPoint.y = parseInt(document.getElementById('yStart').value);
 
     var directionStart = document.getElementById('directionStart').value;
-
-    //setting LOST boolean
     startPoint.isLost = false;
     //using the index of direction array to set the first direction
     startPoint.directionPointer = DIRECTION.indexOf(directionStart.toLowerCase());
@@ -44,7 +35,8 @@ function setStartingPoint() {
 }
 
 
-//taking the instruction input and looping through. The isLost boolean determines whether we have fallen off the sides of the grid
+// Updates the position of the robot as we loop through every input of
+// the instruction
 function updatePosition(grid, location, instruction) {
     for (i = 0; i < instruction.length; i++) {
         if (instruction.charAt(i) === 'r') {
@@ -85,7 +77,16 @@ function updatePosition(grid, location, instruction) {
     return location;
 }
 
-function finishingPoint(location) {
+// Prints the final coordinate and direction of robot
+function printResult(location) {
+    var div = document.createElement("div");
+    var final = document.createTextNode(finishingPointToString(location));
+    div.appendChild(final);
+    document.getElementById("finalPosition").appendChild(div);
+}
+
+// Updates final coordinates and converts to string
+function finishingPointToString(location) {
     var finalCoordinate = [];
     finalCoordinate[0] = location.x;
     finalCoordinate[1] = location.y;
@@ -94,12 +95,4 @@ function finishingPoint(location) {
         finalCoordinate[3] = 'LOST';
     }
     return finalCoordinate.join(' ');
-}
-
-
-function printResult(location) {
-    var div = document.createElement("div");
-    var final = document.createTextNode(finishingPoint(location));
-    div.appendChild(final);
-    document.getElementById("finalPosition").appendChild(div);
 }

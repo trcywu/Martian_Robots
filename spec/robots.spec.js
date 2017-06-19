@@ -32,7 +32,7 @@ describe('finishingPoint', function() {
       isLost: false
     };
     var expectedString = '1 1 E';
-    var outputString = finishingPoint(location);
+    var outputString = finishingPointToString(location);
     expect(outputString).toEqual(expectedString);
   });
 });
@@ -71,7 +71,7 @@ describe('finishingPoint', function() {
       isLost: true
     };
     var expectedString = '3 3 N LOST';
-    var outputString = finishingPoint(location);
+    var outputString = finishingPointToString(location);
     expect(outputString).toEqual(expectedString);
   });
 });
