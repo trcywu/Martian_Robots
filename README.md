@@ -16,4 +16,4 @@ index.html
 testRunner.html
 
 test
-run test with LOST 
+run test with LOST
