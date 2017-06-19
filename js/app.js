@@ -9,97 +9,97 @@
 
 //Global Variables
 
-var xGrid;
-var yGrid;
-var xPos;
-var yPos;
 var direction = ['e', 'n', 'w', 's'];
-var directionPointer;
-var isLost = false;
 
 function play() {
-    drawGrid();
-    setStartingPoint();
-    updatePosition();
-    printResult();
+    var grid = drawGrid();
+    var location = setStartingPoint();
+    location = updatePosition(grid, location);
+    printResult(location);
 }
-
 
 //takes inputs from page and save to variables
 function drawGrid() {
-    xGrid = parseInt(document.getElementById('xGrid').value);
-    yGrid = parseInt(document.getElementById('yGrid').value);
+  return {
+    x: parseInt(document.getElementById('xGrid').value),
+    y: parseInt(document.getElementById('yGrid').value)
+  };
 }
 
 //setting starting point variables
 function setStartingPoint() {
-    xPos = parseInt(document.getElementById('xStart').value);
-    yPos = parseInt(document.getElementById('yStart').value);
+    var startPoint = {};
+    startPoint.x = parseInt(document.getElementById('xStart').value);
+    startPoint.y = parseInt(document.getElementById('yStart').value);
+
     var directionStart = document.getElementById('directionStart').value;
 
     //setting LOST boolean
-    isLost = false;
+    startPoint.isLost = false;
     //using the index of direction array to set the first direction
-    directionPointer = direction.indexOf(directionStart.toLowerCase());
+    startPoint.directionPointer = direction.indexOf(directionStart.toLowerCase());
+
+    return startPoint;
 }
 
 
 //taking the instruction input and looping through. The isLost boolean determines whether we have fallen off the sides of the grid
-function updatePosition() {
+function updatePosition(grid, location) {
     var instruction = document.getElementById('instruction').value.toLowerCase();
     for (i = 0; i < instruction.length; i++) {
         if (instruction.charAt(i) === 'r') {
-            directionPointer--;
-            if (directionPointer < 0) {
-                directionPointer = 3;
+            location.directionPointer--;
+            if (location.directionPointer < 0) {
+                location.directionPointer = 3;
             }
-            console.log(directionPointer);
+            console.log(location.directionPointer);
         } else if (instruction.charAt(i) === 'l') {
-            directionPointer++;
-            if (directionPointer > 3) {
-                directionPointer = 0;
+            location.directionPointer++;
+            if (location.directionPointer > 3) {
+                location.directionPointer = 0;
             }
-            console.log(directionPointer);
+            console.log(location.directionPointer);
         } else if (instruction.charAt(i) === 'f') {
-            if (directionPointer === 0) {
-                if (xPos !== xGrid) {
-                    xPos++;
+            if (location.directionPointer === 0) {
+                if (location.x !== grid.x) {
+                    location.x++;
                 }
-            } else if (directionPointer === 2) {
-                if (xPos !== xGrid) {
-                    xPos--;
+            } else if (location.directionPointer === 2) {
+                if (location.x !== grid.x) {
+                    location.x--;
                 }
-            } else if (directionPointer === 1) {
-                if (yPos !== yGrid) {
-                    yPos++;
+            } else if (location.directionPointer === 1) {
+                if (location.y !== grid.y) {
+                    location.y++;
                 }
-            } else if (directionPointer === 3) {
-                if (yPos !== yGrid) {
-                    yPos--;
+            } else if (location.directionPointer === 3) {
+                if (location.y !== grid.y) {
+                    location.y--;
                 }
             }
-            if (xPos === xGrid || yPos === yGrid) {
-                isLost = true;
+            if (location.x === grid.x || location.y === grid.y) {
+                location.isLost = true;
             }
         }
     }
+    return location;
 }
 
-function finishingPoint() {
+function finishingPoint(location) {
     var finalCoordinate = [];
-    finalCoordinate[0] = xPos;
-    finalCoordinate[1] = yPos;
-    finalCoordinate[2] = direction[directionPointer].toUpperCase();
-    if (isLost) {
+    finalCoordinate[0] = location.x;
+    finalCoordinate[1] = location.y;
+    finalCoordinate[2] = direction[location.directionPointer].toUpperCase();
+    if (location.isLost) {
         finalCoordinate[3] = 'LOST';
     }
     return finalCoordinate.join(' ');
 }
 
 
-function printResult() {
+function printResult(location) {
     var div = document.createElement("div");
-    var final = document.createTextNode(finishingPoint());
+    var final = document.createTextNode(finishingPoint(location));
     div.appendChild(final);
     document.getElementById("finalPosition").appendChild(div);
 }
