@@ -6,8 +6,6 @@ This is a code challenge completed in vanilla JavaScript and testing with Jasmin
 
 ## Run instructions
 
-To run the jasmine unit tests,
-
 To run application:
 open ```robots.html``` in browser.
 
