@@ -9,12 +9,13 @@
 
 //Global Variables
 
-var direction = ['e', 'n', 'w', 's'];
+var DIRECTION = ['e', 'n', 'w', 's'];
 
 function play() {
     var grid = drawGrid();
     var location = setStartingPoint();
-    location = updatePosition(grid, location);
+    var instruction = document.getElementById('instruction').value.toLowerCase();
+    location = updatePosition(grid, location, instruction);
     printResult(location);
 }
 
@@ -37,15 +38,14 @@ function setStartingPoint() {
     //setting LOST boolean
     startPoint.isLost = false;
     //using the index of direction array to set the first direction
-    startPoint.directionPointer = direction.indexOf(directionStart.toLowerCase());
+    startPoint.directionPointer = DIRECTION.indexOf(directionStart.toLowerCase());
 
     return startPoint;
 }
 
 
 //taking the instruction input and looping through. The isLost boolean determines whether we have fallen off the sides of the grid
-function updatePosition(grid, location) {
-    var instruction = document.getElementById('instruction').value.toLowerCase();
+function updatePosition(grid, location, instruction) {
     for (i = 0; i < instruction.length; i++) {
         if (instruction.charAt(i) === 'r') {
             location.directionPointer--;
@@ -89,7 +89,7 @@ function finishingPoint(location) {
     var finalCoordinate = [];
     finalCoordinate[0] = location.x;
     finalCoordinate[1] = location.y;
-    finalCoordinate[2] = direction[location.directionPointer].toUpperCase();
+    finalCoordinate[2] = DIRECTION[location.directionPointer].toUpperCase();
     if (location.isLost) {
         finalCoordinate[3] = 'LOST';
     }
