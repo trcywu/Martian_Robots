@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Martian Robots</title>
+    <script src="js/app.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <h1>Martian Robots</h1>
+
+    <form id="mars">
+
+        <p>Enter Grid coordinates:</p>
+        x: <input id='xGrid' type="number" max='50'> y: <input id='yGrid' type="number" max='50'>
+
+        <p>Starting position:</p>
+        x: <input id='xStart' type="number" value=""><br> y: <input id='yStart' type="number" value=""><br> d: <input id='directionStart' type="text">
+
+        <p>Robot Instruction:</p>
+        Instruction: <input id='instruction' type="text"><br>
+
+        <input type="button" value="Get Final Position" onclick="play()">
+
+        <p>Final Robot Position:</p>
+        <div id="finalPosition"></div>
+
+        <input type="button" value="Play Again!" onclick="this.form.reset();">
+
+    </form>
+</body>
+
+</html>
