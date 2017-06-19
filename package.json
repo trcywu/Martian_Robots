@@ -9,5 +9,6 @@
   "license": "ISC",
   "dependencies": {
     "jasmine": "^2.6.0"
-  }
+  },
+  "spec_dir": "spec"
 }

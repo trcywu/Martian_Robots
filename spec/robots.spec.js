@@ -1,19 +1,38 @@
-var robots = require('../js/app.js');
+describe('updatePosition', function() {
+  it("handles the first sample input", function () {
+    var grid = {
+      x: 5,
+      y: 3
+    };
+    var location = {
+      x: 1,
+      y: 1,
+      directionPointer: 0,
+      isLost: false
+    };
+    var instructions = "rfrfrfrf";
 
-// describe('JavaScript addition operator', function () {
-//     it('adds two numbers together', function () {
-//         expect(1 + 2).toEqual(3);
-//     });
-// });
-var yGrid;
-var xGrid;
-
-describe('size of grid bounded by 50 and 50', function() {
-
-  it("is less than 10", function () {
-      expect(xGrid).toBeLessThan(50);
+    var finalLoc = updatePosition(grid, location, instructions);
+    var expectedLoc = {
+      x: 1,
+      y: 1,
+      directionPointer: 0,
+      isLost: false
+    };
+    expect(finalLoc).toEqual(expectedLoc);
   });
-  it("is less than 10", function () {
-      expect(yGrid).toBeLessThan(50);
+});
+
+describe('finishingPoint', function() {
+  it('converts final location output to string', function() {
+    var location = {
+      x: 1,
+      y: 1,
+      directionPointer: 0,
+      isLost: false
+    };
+    var expectedString = '1 1 E';
+    var outputString = finishingPoint(location);
+    expect(outputString).toEqual(expectedString);
   });
 });
