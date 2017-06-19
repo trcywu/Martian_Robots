@@ -36,3 +36,42 @@ describe('finishingPoint', function() {
     expect(outputString).toEqual(expectedString);
   });
 });
+
+describe('updatePosition', function() {
+  it("handles the second input with a LOST example", function () {
+    var grid = {
+      x: 5,
+      y: 3
+    };
+    var location = {
+      x: 3,
+      y: 2,
+      directionPointer: 1,
+      isLost: false
+    };
+    var instructions = "frrfllffrrfll";
+
+    var finalLoc = updatePosition(grid, location, instructions);
+    var expectedLoc = {
+      x: 3,
+      y: 3,
+      directionPointer: 1,
+      isLost: true
+    };
+    expect(finalLoc).toEqual(expectedLoc);
+  });
+});
+
+describe('finishingPoint', function() {
+  it('converts final location output to string with LOST example', function() {
+    var location = {
+      x: 3,
+      y: 3,
+      directionPointer: 1,
+      isLost: true
+    };
+    var expectedString = '3 3 N LOST';
+    var outputString = finishingPoint(location);
+    expect(outputString).toEqual(expectedString);
+  });
+});
