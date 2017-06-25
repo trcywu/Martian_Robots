@@ -1,40 +1,36 @@
 // Constant
-var DIRECTION = ['e', 'n', 'w', 's'];
+const DIRECTION = ['e', 'n', 'w', 's'];
 
 //button press
 function playAgain() {
-    var command = getInput();
+    let instructionString = document.getElementById('instruction').value;
+    const command = processInstructionString(instructionString);
     console.log(command);
     traverseCommands(command);
 }
 
-function getInput() {
-    var instruction = document.getElementById('instruction').value;
-    var individualCommandStrings = instruction.split(/\n/);
-    console.log(individualCommandStrings);
-    var filteredInput = individualCommandStrings.filter(function(x) {
+function processInstructionString(instructionString) {
+    return instructionString.split(/\n/)
+    .filter(function(x) {
         return x !== "";
-    });
-    console.log(filteredInput);
-    var twoArray = filteredInput.map(function(x) {
+    })
+    .map(function(x) {
         return x.split('');
     });
-    console.log(twoArray);
-    return twoArray;
 }
 
 
-function traverseCommands(command, grid) {
-    var grid = drawGrid(command[0][0], command[0][1]);
+function traverseCommands(command) {
+    const grid = drawGrid(command[0][0], command[0][1]);
     console.log(grid);
 
-    var history = [];
+    const history = [];
 
-    var i = 1;
+    let i = 1;
     while (i < command.length) {
 
         //Command[i] set as robot start point
-        var location = setStartingPoint(command[i][0], command[i][1], command[i][2]);
+        let location = setStartingPoint(command[i][0], command[i][1], command[i][2]);
         //Command[i + 1] as movements for robots - remember and mark death
 
 
@@ -58,10 +54,10 @@ function drawGrid(xValue, yValue) {
 }
 
 function setStartingPoint(x, y, d) {
-    var startPoint = {};
+    const startPoint = {};
     startPoint.x = x;
     startPoint.y = y;
-    var directionStart = d;
+    const directionStart = d;
     startPoint.directionPointer = DIRECTION.indexOf(directionStart.toLowerCase());
     startPoint.isLost = false;
     //using the index of direction array to set the first direction
@@ -125,15 +121,15 @@ function updatePosition(grid, location, instruction, history) {
 
 // Prints the final coordinate and direction of robot
 function printResult(location) {
-    var div = document.createElement("div");
-    var final = document.createTextNode(finishingPointToString(location));
+    let div = document.createElement("div");
+    let final = document.createTextNode(finishingPointToString(location));
     div.appendChild(final);
     document.getElementById("finalPosition").appendChild(div);
 }
 
 // Updates final coordinates and converts to string
 function finishingPointToString(location) {
-    var finalCoordinate = [];
+    const finalCoordinate = [];
     finalCoordinate[0] = location.x;
     finalCoordinate[1] = location.y;
     finalCoordinate[2] = DIRECTION[location.directionPointer].toUpperCase();
@@ -145,5 +141,4 @@ function finishingPointToString(location) {
 
 function removeOutput() {
   document.getElementById("finalPosition").remove();
-  this.form.reset();
 }
