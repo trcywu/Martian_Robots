@@ -98,13 +98,6 @@ function updatePosition(grid, location, instruction, history) {
                 } else if (location.directionPointer === 3) { // S move y - 1
                     location.y--;
                 }
-                // if (location.x === grid.x && history.xLost.indexOf(location.x)=== -1) {
-                //       history.xLost.push(location.x);
-                //       location.isLost = true;
-                // }  else if(history.yLost.indexOf(location.y)=== -1 && location.y === grid.y){
-                //         history.yLost.push(location.y);
-                //         location.isLost = true;
-                //     }
                 if (location.x > grid.x || location.x < 0 || location.y > grid.y || location.y < 0) {
                     //reverse last move, to reset position before death
                     if (location.directionPointer === 0) { // E move x - 1
@@ -116,7 +109,6 @@ function updatePosition(grid, location, instruction, history) {
                     } else if (location.directionPointer === 3) { // S move y + 1
                         location.y++;
                     }
-
                     if (history.indexOf(location.x.toString().concat(location.y, location.directionPointer)) === -1) {
                         location.isLost = true;
 
@@ -149,4 +141,9 @@ function finishingPointToString(location) {
         finalCoordinate[3] = 'LOST';
     }
     return finalCoordinate.join(' ');
+}
+
+function removeOutput() {
+  document.getElementById("finalPosition").remove();
+  this.form.reset();
 }

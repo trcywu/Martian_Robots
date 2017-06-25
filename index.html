@@ -13,7 +13,7 @@
     <form id="mars">
 
         <p>Robot Instruction:</p>
-        Instruction: <textarea id='instruction' name="Text1" cols="40" rows="5">53
+        <textarea id='instruction' name="Text1" cols="40" rows="5">53
 11E
 RFRFRFRF
 
@@ -26,7 +26,7 @@ LLFFFLFLFL</textarea>
         <input type="button" value="Get" onclick="playAgain()">
         <p>Final Robot Position:</p>
         <div id="finalPosition"></div>
-        <input type="button" value="Reset" onclick="this.form.reset();">
+        <input type="button" value="Reset" onclick="this.form.reset();removeOutput()">
 
     </form>
 </body>
