@@ -1,3 +1,15 @@
+describe('processInstructionString', function() {
+  it('converts input string', function() {
+    instructionString = '53\n11E\nRFRFRFRF\n\n32N\nFRRFLLFFRRFLL\n\n03W\nLLFFFLFLFL';
+    var processedInstruction = processInstructionString(instructionString);
+    var expectedOutcome = [ [ '5', '3' ], [ '1', '1', 'E' ],
+    [ 'R', 'F', 'R', 'F', 'R', 'F', 'R', 'F' ], [ '3', '2', 'N' ],
+    [ 'F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L' ],
+    [ '0', '3', 'W' ], [ 'L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L' ] ];
+    expect(processedInstruction).toEqual(expectedOutcome);
+});
+});
+
 describe('updatePosition', function() {
   it("handles the first sample input", function () {
     var grid = {
@@ -10,9 +22,9 @@ describe('updatePosition', function() {
       directionPointer: 0,
       isLost: false
     };
-    var instructions = "rfrfrfrf";
+    var instructions = "RFRFRFRF";
 
-    var finalLoc = updatePosition(grid, location, instructions);
+    var finalLoc = updatePosition(grid, location, instructions, history);
     var expectedLoc = {
       x: 1,
       y: 1,
@@ -39,6 +51,7 @@ describe('finishingPoint', function() {
 
 describe('updatePosition', function() {
   it("handles the second input with a LOST example", function () {
+    var history = [];
     var grid = {
       x: 5,
       y: 3
@@ -49,9 +62,9 @@ describe('updatePosition', function() {
       directionPointer: 1,
       isLost: false
     };
-    var instructions = "frrfllffrrfll";
+    var instructions = "FRRFLLFFRRFLL";
 
-    var finalLoc = updatePosition(grid, location, instructions);
+    var finalLoc = updatePosition(grid, location, instructions, history);
     var expectedLoc = {
       x: 3,
       y: 3,

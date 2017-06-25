@@ -3,22 +3,23 @@ const DIRECTION = ['e', 'n', 'w', 's'];
 
 //button press
 function playAgain() {
-    let instructionString = document.getElementById('instruction').value;
+    const instructionString = document.getElementById('instruction').value;
     const command = processInstructionString(instructionString);
+    console.log(instructionString);
     console.log(command);
     traverseCommands(command);
 }
 
 function processInstructionString(instructionString) {
     return instructionString.split(/\n/)
-    .filter(function(x) {
-        return x !== "";
-    })
-    .map(function(x) {
-        return x.split('');
-    });
+        .filter(function(x) {
+            return x !== "";
+        })
+        .map(function(x) {
+            return x.split('');
+        });
+        console.log(instructionString);
 }
-
 
 function traverseCommands(command) {
     const grid = drawGrid(command[0][0], command[0][1]);
@@ -67,7 +68,6 @@ function setStartingPoint(x, y, d) {
 
 
 //then run update position but with instruction that is robotArray[i+1]
-//how to set instruction as robotArray[i+1], always taking the array after the starting point?
 
 // Updates the position of the robot as we loop through every input of
 // the instruction
@@ -121,8 +121,8 @@ function updatePosition(grid, location, instruction, history) {
 
 // Prints the final coordinate and direction of robot
 function printResult(location) {
-    let div = document.createElement("div");
-    let final = document.createTextNode(finishingPointToString(location));
+    const div = document.createElement("div");
+    const final = document.createTextNode(finishingPointToString(location));
     div.appendChild(final);
     document.getElementById("finalPosition").appendChild(div);
 }
@@ -140,5 +140,5 @@ function finishingPointToString(location) {
 }
 
 function removeOutput() {
-  document.getElementById("finalPosition").remove();
+    document.getElementById("finalPosition").remove();
 }
