@@ -5,8 +5,6 @@ const DIRECTION = ['e', 'n', 'w', 's'];
 function playAgain() {
     const instructionString = document.getElementById('instruction').value;
     const command = processInstructionString(instructionString);
-    console.log(instructionString);
-    console.log(command);
     traverseCommands(command);
 }
 
@@ -18,18 +16,13 @@ function processInstructionString(instructionString) {
         .map(function(x) {
             return x.split('');
         });
-        console.log(instructionString);
 }
 
 function traverseCommands(command) {
     const grid = drawGrid(command[0][0], command[0][1]);
-    console.log(grid);
-
     const history = [];
-
     let i = 1;
     while (i < command.length) {
-
         //Command[i] set as robot start point
         let location = setStartingPoint(command[i][0], command[i][1], command[i][2]);
         //Command[i + 1] as movements for robots - remember and mark death
@@ -37,7 +30,7 @@ function traverseCommands(command) {
 
         location = updatePosition(grid, location, command[i + 1], history);
         //return outcome of movements
-        console.log(location);
+
         printResult(location);
 
         i = i + 2;
@@ -110,11 +103,9 @@ function updatePosition(grid, location, instruction, history) {
 
                         history.push(location.x.toString().concat(location.y, location.directionPointer));
                     }
-                    console.log(history);
                 }
             }
         }
-        // console.log(location);
     }
     return location;
 }
