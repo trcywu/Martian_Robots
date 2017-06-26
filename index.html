@@ -11,13 +11,16 @@
     <h1>Martian Robots</h1>
 
     <form id="mars">
-        <p>Enter entire sample input in the below box, and press Process Robots to find where the Robots end up!</p>
+        <p>Enter entire sample input in the below box,
+          and press Process Robots to find where the Robots end up!</p>
         <p>Robot Instruction:</p>
-        <textarea id='instruction' name="Text1" cols="40" rows="5"></textarea><br>
+        <textarea id='instruction' name="Text1" cols="40" rows="5"></textarea>
+        <br>
         <input type="button" value="Process Robots" onclick="playAgain()">
         <p>Final Robot Position:</p>
         <div id="finalPosition"></div>
-        <input type="button" value="Reset" onclick="this.form.reset();removeOutput()">
+        <input type="button" value="Reset"
+        onclick="this.form.reset();removeOutput()">
 
     </form>
 </body>
