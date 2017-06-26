@@ -18,35 +18,28 @@ function processInstructionString(instructionString) {
         });
 }
 
+//Command is now a 2-D array. Index 0 is used to create the grid, then Robot starting point at Command[i] and
+//intructions at Command[i+1] are processed
 function traverseCommands(command) {
     const grid = drawGrid(command[0][0], command[0][1]);
     const history = [];
     let i = 1;
     while (i < command.length) {
-        //Command[i] set as robot start point
         let location = setStartingPoint(command[i][0], command[i][1], command[i][2]);
-        //Command[i + 1] as movements for robots - remember and mark death
-
-
         location = updatePosition(grid, location, command[i + 1], history);
-        //return outcome of movements
-
         printResult(location);
-
         i = i + 2;
-
     }
-
 }
 
-//Fetch x and y from first element
+//Setting the boundaries of the grid
 function drawGrid(xValue, yValue) {
     return {
         x: xValue,
         y: yValue
     };
 }
-
+//Using the index of direction array to set the first direction
 function setStartingPoint(x, y, d) {
     const startPoint = {};
     startPoint.x = x;
@@ -54,16 +47,13 @@ function setStartingPoint(x, y, d) {
     const directionStart = d;
     startPoint.directionPointer = DIRECTION.indexOf(directionStart.toLowerCase());
     startPoint.isLost = false;
-    //using the index of direction array to set the first direction
     return startPoint;
 }
 
 
-
-//then run update position but with instruction that is robotArray[i+1]
-
 // Updates the position of the robot as we loop through every input of
-// the instruction
+// the instruction. Allowing robots to move 'off' the grid and then reversing
+// last move to recorde the coordinate and orientation before moving 'off'
 function updatePosition(grid, location, instruction, history) {
     for (i = 0; i < instruction.length; i++) {
         if (location.isLost === false) {
@@ -88,7 +78,7 @@ function updatePosition(grid, location, instruction, history) {
                     location.y--;
                 }
                 if (location.x > grid.x || location.x < 0 || location.y > grid.y || location.y < 0) {
-                    //reverse last move, to reset position before death
+                    //reverse last move, to reset position before LOST
                     if (location.directionPointer === 0) { // E move x - 1
                         location.x--;
                     } else if (location.directionPointer === 2) { // W move x + 1
@@ -100,7 +90,6 @@ function updatePosition(grid, location, instruction, history) {
                     }
                     if (history.indexOf(location.x.toString().concat(location.y, location.directionPointer)) === -1) {
                         location.isLost = true;
-
                         history.push(location.x.toString().concat(location.y, location.directionPointer));
                     }
                 }
@@ -130,6 +119,7 @@ function finishingPointToString(location) {
     return finalCoordinate.join(' ');
 }
 
+//Setting the appended div to empty string so that it can take fresh outputs
 function removeOutput() {
-    document.getElementById("finalPosition").remove();
+    document.getElementById("finalPosition").innerHTML = '';
 }
